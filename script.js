@@ -138,16 +138,16 @@ if (activeAlbum !== "all") filtered = filtered.filter(s => s.album === activeAlb
 }
 
 document.getElementById("grid").addEventListener("click", e => {
+  if (e.target.closest(".clickable-album")) {
+    const album = e.target.closest(".clickable-album");
+    activeAlbum = activeAlbum === album.dataset.album ? "all" : album.dataset.album;
+    render();
+    return;
+  }
   const card = e.target.closest(".song-card");
-  if (!card || e.target.closest(".clickable-album")) return;
+  if (!card) return;
   const lyric = card.querySelector(".lyric");
   if (lyric) lyric.style.display = lyric.style.display === "none" ? "block" : "none";
-});
-document.getElementById("grid").addEventListener("click", e => {
-  const album = e.target.closest(".clickable-album");
-  if (!album) return;
-  activeAlbum = activeAlbum === album.dataset.album ? "all" : album.dataset.album;
-  render();
 });
 
 document.getElementById("search").addEventListener("input", e => {
