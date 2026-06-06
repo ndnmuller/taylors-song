@@ -130,6 +130,7 @@ function render() {
       <div class="song-title">${s.title}</div>
       <div class="song-album">${s.album}</div>
       <div class="tags">${s.tags.map(t => `<span class="tag tag-${t}">${tagLabels[t]}</span>`).join("")}</div>
+      ${activeTag !== "all" && s.lyrics && s.lyrics[activeTag] ? `<div class="lyric">"${s.lyrics[activeTag]}"</div>` : ""}
     </div>
   `).join("");
 }
