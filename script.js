@@ -128,15 +128,21 @@ if (activeAlbum !== "all") filtered = filtered.filter(s => s.album === activeAlb
   countEl.textContent = filtered.length + " song" + (filtered.length !== 1 ? "s" : "");
   if (!filtered.length) { grid.innerHTML = '<div class="empty">No songs found</div>'; return; }
   grid.innerHTML = filtered.map(s => `
-    <div class="song-card">
+    <div class="song-card" data-title="${s.title}">
       <div class="song-title">${s.title}</div>
       <div class="song-album clickable-album" data-album="${s.album}">${s.album}</div>
       <div class="tags">${s.tags.map(t => `<span class="tag tag-${t}">${tagLabels[t]}</span>`).join("")}</div>
-      ${activeTag !== "all" && s.lyrics && s.lyrics[activeTag] ? `<div class="lyric">"${s.lyrics[activeTag]}"</div>` : ""}
+      ${activeTag !== "all" && s.lyrics && s.lyrics[activeTag] ? `<div class="lyric" style="display:none;">"${s.lyrics[activeTag]}"</div>` : ""}
     </div>
   `).join("");
 }
 
+document.getElementById("grid").addEventListener("click", e => {
+  const card = e.target.closest(".song-card");
+  if (!card || e.target.closest(".clickable-album")) return;
+  const lyric = card.querySelector(".lyric");
+  if (lyric) lyric.style.display = lyric.style.display === "none" ? "block" : "none";
+});
 document.getElementById("grid").addEventListener("click", e => {
   const album = e.target.closest(".clickable-album");
   if (!album) return;
