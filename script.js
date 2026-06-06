@@ -128,7 +128,7 @@ function render() {
   grid.innerHTML = filtered.map(s => `
     <div class="song-card">
       <div class="song-title">${s.title}</div>
-      <div class="song-album">${s.album}</div>
+      <<div class="song-album clickable-album" data-album="${s.album}">${s.album}</div>
       <div class="tags">${s.tags.map(t => `<span class="tag tag-${t}">${tagLabels[t]}</span>`).join("")}</div>
       ${activeTag !== "all" && s.lyrics && s.lyrics[activeTag] ? `<div class="lyric">"${s.lyrics[activeTag]}"</div>` : ""}
     </div>
@@ -149,3 +149,9 @@ document.getElementById("search").addEventListener("input", e => {
   render();
 });
 render();
+document.getElementById("grid").addEventListener("click", e => {
+  const album = e.target.closest(".clickable-album");
+  if (!album) return;
+  activeAlbum = album.dataset.album;
+  render();
+});
