@@ -155,5 +155,6 @@ document.getElementById("filters").addEventListener("click", e => {
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
   activeTag = btn.dataset.tag;
+if (btn.dataset.tag === "all") activeAlbum = "all";
   render();
 });
