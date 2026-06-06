@@ -21,14 +21,11 @@ const songs = [
   { title: "Long Live", album: "Speak Now", tags: ["nostalgia", "fame"] },
   { title: "Mean", album: "Speak Now", tags: ["fame", "revenge"] },
   { title: "We Are Never Getting Back Together", album: "Red", tags: ["heartbreak", "revenge"] },
-  { title: "All Too Well", 
-  album: "Red", 
+  { title: "All Too Well",
+  album: "Red",
   tags: ["heartbreak", "nostalgia", "cars"],
-  lyrics: {
-    heartbreak: "And I forget about you long enough to forget why I needed to",
-    nostalgia: "I remember it all too well",
-    cars: "You almost ran the red cause you were looking over at me"
-  },
+  lyrics: { heartbreak: "And I forget about you long enough to forget why I needed to", nostalgia: "I remember it all too well" },
+},
   { title: "State Of Grace", album: "Red", tags: ["heartbreak", "nature"] },
   { title: "22", album: "Red", tags: ["nostalgia"] },
   { title: "Red", album: "Red", tags: ["heartbreak", "nature", "cars"] },
