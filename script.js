@@ -137,12 +137,10 @@ if (activeAlbum !== "all") filtered = filtered.filter(s => s.album === activeAlb
   `).join("");
 }
 
-document.getElementById("filters").addEventListener("click", e => {
-  const btn = e.target.closest(".filter-btn");
-  if (!btn) return;
-  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  activeTag = btn.dataset.tag;
+ddocument.getElementById("grid").addEventListener("click", e => {
+  const album = e.target.closest(".clickable-album");
+  if (!album) return;
+  activeAlbum = activeAlbum === album.dataset.album ? "all" : album.dataset.album;
   render();
 });
 
