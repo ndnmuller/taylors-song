@@ -21,11 +21,7 @@ const songs = [
   { title: "Long Live", album: "Speak Now", tags: ["nostalgia", "fame"] },
   { title: "Mean", album: "Speak Now", tags: ["fame", "revenge"] },
   { title: "We Are Never Getting Back Together", album: "Red", tags: ["heartbreak", "revenge"] },
-  { title: "All Too Well",
-  album: "Red",
-  tags: ["heartbreak", "nostalgia", "cars"],
-  lyrics: { heartbreak: "And I forget about you long enough to forget why I needed to", nostalgia: "I remember it all too well" },
-},
+  { title: "All Too Well", album: "Red", tags: ["heartbreak", "nostalgia", "cars"], lyrics: { heartbreak: "And I forget about you long enough to forget why I needed to", nostalgia: "I remember it all too well" } },
   { title: "State Of Grace", album: "Red", tags: ["heartbreak", "nature"] },
   { title: "22", album: "Red", tags: ["nostalgia"] },
   { title: "Red", album: "Red", tags: ["heartbreak", "nature", "cars"] },
@@ -89,7 +85,7 @@ const songs = [
   { title: "Paris", album: "Midnights", tags: ["nostalgia", "queercoded"] },
   { title: "Mastermind", album: "Midnights", tags: ["revenge", "fame"] },
   { title: "Down Bad", album: "TTPD", tags: ["heartbreak", "queercoded"] },
-  { title: "So Long, London", album: "TTPD", tags: ["heartbreak", "nostalgia","wedding"] },
+  { title: "So Long, London", album: "TTPD", tags: ["heartbreak", "nostalgia", "wedding"] },
   { title: "But Daddy I Love Him", album: "TTPD", tags: ["heartbreak", "fame", "revenge"] },
   { title: "Florida!!!", album: "TTPD", tags: ["heartbreak", "nostalgia", "cars"] },
   { title: "Who's Afraid Of Little Old Me?", album: "TTPD", tags: ["revenge", "fame"] },
@@ -111,7 +107,8 @@ const tagLabels = {
   revenge: "Revenge / reclaim",
   nostalgia: "Nostalgia",
   fame: "Fame / media",
-  nature: "Nature imagery"
+  nature: "Nature imagery",
+  wedding: "Wedding"
 };
 
 let activeTag = "all";
@@ -122,7 +119,7 @@ function render() {
   const grid = document.getElementById("grid");
   const countEl = document.getElementById("count");
   let filtered = songs;
-if (activeAlbum !== "all") filtered = filtered.filter(s => s.album === activeAlbum);
+  if (activeAlbum !== "all") filtered = filtered.filter(s => s.album === activeAlbum);
   if (activeTag !== "all") filtered = filtered.filter(s => s.tags.includes(activeTag));
   if (searchQuery) filtered = filtered.filter(s => s.title.toLowerCase().includes(searchQuery) || s.album.toLowerCase().includes(searchQuery));
   countEl.textContent = filtered.length + " song" + (filtered.length !== 1 ? "s" : "");
@@ -132,7 +129,7 @@ if (activeAlbum !== "all") filtered = filtered.filter(s => s.album === activeAlb
       <div class="song-title">${s.title}</div>
       <div class="song-album clickable-album" data-album="${s.album}">${s.album}</div>
       <div class="tags">${s.tags.map(t => `<span class="tag tag-${t}">${tagLabels[t]}</span>`).join("")}</div>
-      ${activeTag !== "all" && s.lyrics && s.lyrics[activeTag] ? `<div class="lyric" style="display:none;">"${s.lyrics[activeTag]}"</div>` : ""}
+      ${s.lyrics && s.lyrics[activeTag] ? `<div class="lyric" style="display:none;">"${s.lyrics[activeTag]}"</div>` : ""}
     </div>
   `).join("");
 }
@@ -154,13 +151,15 @@ document.getElementById("search").addEventListener("input", e => {
   searchQuery = e.target.value.toLowerCase();
   render();
 });
+
 render();
+
 document.getElementById("filters").addEventListener("click", e => {
   const btn = e.target.closest(".filter-btn");
   if (!btn) return;
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
   activeTag = btn.dataset.tag;
-if (btn.dataset.tag === "all") activeAlbum = "all";
+  if (btn.dataset.tag === "all") activeAlbum = "all";
   render();
 });
