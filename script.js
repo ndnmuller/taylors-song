@@ -137,7 +137,7 @@ if (activeAlbum !== "all") filtered = filtered.filter(s => s.album === activeAlb
   `).join("");
 }
 
-ddocument.getElementById("grid").addEventListener("click", e => {
+document.getElementById("grid").addEventListener("click", e => {
   const album = e.target.closest(".clickable-album");
   if (!album) return;
   activeAlbum = activeAlbum === album.dataset.album ? "all" : album.dataset.album;
@@ -149,9 +149,3 @@ document.getElementById("search").addEventListener("input", e => {
   render();
 });
 render();
-document.getElementById("grid").addEventListener("click", e => {
-  const album = e.target.closest(".clickable-album");
-  if (!album) return;
-  activeAlbum = album.dataset.album;
-  render();
-});
