@@ -149,3 +149,11 @@ document.getElementById("search").addEventListener("input", e => {
   render();
 });
 render();
+document.getElementById("filters").addEventListener("click", e => {
+  const btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  activeTag = btn.dataset.tag;
+  render();
+});
