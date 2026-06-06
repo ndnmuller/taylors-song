@@ -115,6 +115,7 @@ const tagLabels = {
 };
 
 let activeTag = "all";
+let activeAlbum = "all";
 let searchQuery = "";
 
 function render() {
