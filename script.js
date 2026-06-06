@@ -121,6 +121,7 @@ function render() {
   const grid = document.getElementById("grid");
   const countEl = document.getElementById("count");
   let filtered = songs;
+if (activeAlbum !== "all") filtered = filtered.filter(s => s.album === activeAlbum);
   if (activeTag !== "all") filtered = filtered.filter(s => s.tags.includes(activeTag));
   if (searchQuery) filtered = filtered.filter(s => s.title.toLowerCase().includes(searchQuery) || s.album.toLowerCase().includes(searchQuery));
   countEl.textContent = filtered.length + " song" + (filtered.length !== 1 ? "s" : "");
@@ -128,7 +129,7 @@ function render() {
   grid.innerHTML = filtered.map(s => `
     <div class="song-card">
       <div class="song-title">${s.title}</div>
-      <<div class="song-album clickable-album" data-album="${s.album}">${s.album}</div>
+      <div class="song-album clickable-album" data-album="${s.album}">${s.album}</div>
       <div class="tags">${s.tags.map(t => `<span class="tag tag-${t}">${tagLabels[t]}</span>`).join("")}</div>
       ${activeTag !== "all" && s.lyrics && s.lyrics[activeTag] ? `<div class="lyric">"${s.lyrics[activeTag]}"</div>` : ""}
     </div>
