@@ -181,6 +181,10 @@ function render() {
     `;
   }).join("");
 }
+<div id="quote-panel" class="quote-panel">
+  <h3>Select a song</h3>
+  <p>Click a song to see the quote.</p>
+</div>
 
 document.getElementById("grid").addEventListener("click", event => {
   const album = event.target.closest(".clickable-album");
@@ -192,14 +196,18 @@ document.getElementById("grid").addEventListener("click", event => {
   }
 
   const card = event.target.closest(".song-card");
-
   if (!card) return;
 
   const lyric = card.querySelector(".lyric");
+  if (!lyric) return;
 
-  if (lyric) {
-    lyric.style.display = lyric.style.display === "none" ? "block" : "none";
-  }
+  const isOpen = lyric.style.display === "block";
+
+  // close all lyrics first
+  document.querySelectorAll(".lyric").forEach(l => l.style.display = "none");
+
+  // if it was closed, open it
+  if (!isOpen) lyric.style.display = "block";
 });
 
 document.getElementById("search").addEventListener("input", event => {
