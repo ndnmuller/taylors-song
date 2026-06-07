@@ -5,10 +5,12 @@ const songs = [
   { 
     title: "Cruel Summer", 
     album: "Lover", 
-    tags: ["queercoded"]
+    tags: ["queercoded"],
     lyrics: {
-        queercoded: "I don't wanna keep secrets just to keep you","And I snuck in through the garden gate every night that summer just to seal my fate",
+        queercoded: [
+            "I don't wanna keep secrets just to keep you","And I snuck in through the garden gate every night that summer just to seal my fate",
   "for what it's worth"
+  ]
 }
 },
   { title: "You Need To Calm Down", album: "Lover", tags: ["queercoded", "fame"] },
@@ -143,7 +145,8 @@ let activeAlbum = "all";
 let searchQuery = "";
 
 function showDetail(song) {
-  const quote = song.lyrics?.[activeTag] || Object.values(song.lyrics || {})[0];
+  const rawQuote = song.lyrics?.[activeTag] || Object.values(song.lyrics || {})[0];
+const quotes = Array.isArray(rawQuote) ? rawQuote : rawQuote ? [rawQuote] : [];
   document.getElementById("grid-view").style.display = "none";
   document.getElementById("detail-view").style.display = "block";
   document.getElementById("detail-view").innerHTML = `
@@ -154,8 +157,7 @@ function showDetail(song) {
       <div class="tags" style="margin: 12px 0;">
         ${song.tags.map(tag => `<span class="tag tag-${tag}">${tagLabels[tag]}</span>`).join("")}
       </div>
-      ${quote ? `<div class="detail-quote">"${quote}"</div>` : "<p style='color:#aaa;font-size:13px;'>No lyric added for this song yet.</p>"}
-    </div>
+      ${quotes.length > 0 ? quotes.map(q => `<div class="detail-quote">"${q}"</div>`).join("") : "<p style='color:#aaa;font-size:13px;'>No lyric added for this song yet.</p>"}
   `;
   document.getElementById("back-btn").addEventListener("click", () => {
     document.getElementById("detail-view").style.display = "none";
