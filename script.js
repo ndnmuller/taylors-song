@@ -9,7 +9,7 @@ const songs = [
     lyrics: {
         queercoded: [
             "I don't wanna keep secrets just to keep you","And I snuck in through the garden gate every night that summer just to seal my fate",
-  "for what it's worth"
+  "for whatever it's worth I love you, ain't that the worst thing you ever heard?"
   ]
 }
 },
