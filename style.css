@@ -170,3 +170,6 @@ input[type="text"]:focus {
   border-left: 3px solid #ddd;
   padding-left: 1rem;
 }
+#grid-view {
+  width: 100%;
+}
