@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const songs = [
   { title: "Death By A Thousand Cuts", album: "Lover", tags: ["heartbreak", "queercoded"] },
   { title: "Cruel Summer", album: "Lover", tags: ["heartbreak", "queercoded", "nostalgia"] },
@@ -221,3 +223,5 @@ document.getElementById("filters").addEventListener("click", event => {
 });
 
 render();
+
+});
