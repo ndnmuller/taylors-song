@@ -132,6 +132,27 @@ let activeTag = "all";
 let activeAlbum = "all";
 let searchQuery = "";
 
+function showDetail(song) {
+  const quote = song.lyrics?.[activeTag] || Object.values(song.lyrics || {})[0];
+  document.getElementById("grid-view").style.display = "none";
+  document.getElementById("detail-view").style.display = "block";
+  document.getElementById("detail-view").innerHTML = `
+    <button id="back-btn">← Back</button>
+    <div class="detail-card">
+      <div class="detail-title">${song.title}</div>
+      <div class="detail-album">${song.album}</div>
+      <div class="tags" style="margin: 12px 0;">
+        ${song.tags.map(tag => `<span class="tag tag-${tag}">${tagLabels[tag]}</span>`).join("")}
+      </div>
+      ${quote ? `<div class="detail-quote">"${quote}"</div>` : "<p style='color:#aaa;font-size:13px;'>No lyric added for this song yet.</p>"}
+    </div>
+  `;
+  document.getElementById("back-btn").addEventListener("click", () => {
+    document.getElementById("detail-view").style.display = "none";
+    document.getElementById("grid-view").style.display = "block";
+  });
+}
+
 function render() {
   const grid = document.getElementById("grid");
   const countEl = document.getElementById("count");
@@ -141,11 +162,9 @@ function render() {
   if (activeAlbum !== "all") {
     filtered = filtered.filter(song => song.album === activeAlbum);
   }
-
   if (activeTag !== "all") {
     filtered = filtered.filter(song => song.tags.includes(activeTag));
   }
-
   if (searchQuery) {
     filtered = filtered.filter(song =>
       song.title.toLowerCase().includes(searchQuery) ||
@@ -160,27 +179,21 @@ function render() {
     return;
   }
 
-  grid.innerHTML = filtered.map(song => {
-    const quote = song.lyrics?.[activeTag] || (activeTag === "all" ? Object.values(song.lyrics || {})[0] : null);
-
-    return `
-      <div class="song-card" data-title="${song.title}">
-        <div class="song-title">${song.title}</div>
-        <div class="song-album clickable-album" data-album="${song.album}">${song.album}</div>
-        <div class="tags">
-          ${song.tags.map(tag => `<span class="tag tag-${tag}">${tagLabels[tag]}</span>`).join("")}
-        </div>
-        ${quote ? `<div class="lyric" style="display:none;">"${quote}"</div>` : ""}
+  grid.innerHTML = filtered.map(song => `
+    <div class="song-card" data-title="${song.title}">
+      <div class="song-title">${song.title}</div>
+      <div class="song-album clickable-album" data-album="${song.album}">${song.album}</div>
+      <div class="tags">
+        ${song.tags.map(tag => `<span class="tag tag-${tag}">${tagLabels[tag]}</span>`).join("")}
       </div>
-    `;
-  }).join("");
+    </div>
+  `).join("");
 }
 
 document.getElementById("grid").addEventListener("click", event => {
-  const album = event.target.closest(".clickable-album");
-
-  if (album) {
-    activeAlbum = activeAlbum === album.dataset.album ? "all" : album.dataset.album;
+  const albumEl = event.target.closest(".clickable-album");
+  if (albumEl) {
+    activeAlbum = activeAlbum === albumEl.dataset.album ? "all" : albumEl.dataset.album;
     render();
     return;
   }
@@ -188,12 +201,8 @@ document.getElementById("grid").addEventListener("click", event => {
   const card = event.target.closest(".song-card");
   if (!card) return;
 
-  const lyric = card.querySelector(".lyric");
-  if (!lyric) return;
-
-  const isOpen = lyric.style.display === "block";
-  document.querySelectorAll(".lyric").forEach(l => l.style.display = "none");
-  if (!isOpen) lyric.style.display = "block";
+  const song = songs.find(s => s.title === card.dataset.title);
+  if (song) showDetail(song);
 });
 
 document.getElementById("search").addEventListener("input", event => {
@@ -204,18 +213,10 @@ document.getElementById("search").addEventListener("input", event => {
 document.getElementById("filters").addEventListener("click", event => {
   const btn = event.target.closest(".filter-btn");
   if (!btn) return;
-
-  document.querySelectorAll(".filter-btn").forEach(button => {
-    button.classList.remove("active");
-  });
-
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
   activeTag = btn.dataset.tag;
-
-  if (activeTag === "all") {
-    activeAlbum = "all";
-  }
-
+  if (activeTag === "all") activeAlbum = "all";
   render();
 });
 
