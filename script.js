@@ -6,8 +6,8 @@ const songs = [
     title: "Cruel Summer", 
     album: "Lover", 
     tags: ["queercoded"]
-lyrics: {
-  queercoded: "I don't wanna keep secrets just to keep you","And I snuck in through the garden gate every night that summer just to seal my fate",
+    lyrics: {
+        queercoded: "I don't wanna keep secrets just to keep you","And I snuck in through the garden gate every night that summer just to seal my fate",
   "for what it's worth"
 }
 },
