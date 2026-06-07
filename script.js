@@ -2,7 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const songs = [
   { title: "Death By A Thousand Cuts", album: "Lover", tags: ["heartbreak", "queercoded"] },
-  { title: "Cruel Summer", album: "Lover", tags: ["heartbreak", "queercoded", "nostalgia"] },
+  { 
+    title: "Cruel Summer", 
+    album: "Lover", 
+    tags: ["queercoded"]
+lyrics: {
+  queercoded: "I don't wanna keep secrets just to keep you","And I snuck in through the garden gate every night that summer just to seal my fate",
+  "for what it's worth"
+
+},
   { title: "You Need To Calm Down", album: "Lover", tags: ["queercoded", "fame"] },
   { title: "Cornelia Street", album: "Lover", tags: ["heartbreak", "nostalgia"] },
   { title: "London Boy", album: "Lover", tags: ["nostalgia", "cars"] },
@@ -105,8 +113,8 @@ const songs = [
 
   { title: "Down Bad", album: "TTPD", tags: ["heartbreak", "queercoded"] },
   { title: "So Long, London", album: "TTPD", tags: ["heartbreak", "nostalgia", "wedding"] },
-  { title: "But Daddy I Love Him", album: "TTPD", tags: ["heartbreak", "fame", "revenge"] },
-  { title: "Florida!!!", album: "TTPD", tags: ["heartbreak", "nostalgia", "cars"] },
+  { title: "But Daddy I Love Him", album: "TTPD", tags: ["queercoded", "fame", "revenge"] },
+  { title: "Florida!!!", album: "TTPD", tags: ["heartbreak", "queercoded", "cars"] },
   { title: "Who's Afraid Of Little Old Me?", album: "TTPD", tags: ["revenge", "fame"] },
   { title: "The Smallest Man Who Ever Lived", album: "TTPD", tags: ["heartbreak", "revenge"] },
   { title: "The Alchemy", album: "TTPD", tags: ["heartbreak"] },
