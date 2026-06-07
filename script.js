@@ -162,7 +162,7 @@ function render() {
   }
 
   grid.innerHTML = filtered.map(song => {
-    cconst quote = song.lyrics?.[activeTag];
+    const quote = song.lyrics?.[activeTag];
 
     return `
       <div class="song-card" data-title="${song.title}">
