@@ -29,9 +29,8 @@ const songs = [
     album: "Red",
     tags: ["heartbreak", "nostalgia", "cars"],
     lyrics: {
-      all: "TEST QUOTE",
-      heartbreak: "TEST QUOTE",
-      nostalgia: "TEST QUOTE"
+      heartbreak: "And I forget about you long enough to forget why I needed to",
+      nostalgia: "I remember it all too well"
     }
   },
   { title: "State Of Grace", album: "Red", tags: ["heartbreak", "nature"] },
@@ -162,14 +161,12 @@ function render() {
   }
 
   grid.innerHTML = filtered.map(song => {
-    const quote = song.lyrics?.[activeTag];
+    const quote = song.lyrics?.[activeTag] || (activeTag === "all" ? Object.values(song.lyrics || {})[0] : null);
 
     return `
       <div class="song-card" data-title="${song.title}">
         <div class="song-title">${song.title}</div>
-        <div class="song-album clickable-album" data-album="${song.album}">
-          ${song.album}
-        </div>
+        <div class="song-album clickable-album" data-album="${song.album}">${song.album}</div>
         <div class="tags">
           ${song.tags.map(tag => `<span class="tag tag-${tag}">${tagLabels[tag]}</span>`).join("")}
         </div>
@@ -195,11 +192,7 @@ document.getElementById("grid").addEventListener("click", event => {
   if (!lyric) return;
 
   const isOpen = lyric.style.display === "block";
-
-  // close all lyrics first
   document.querySelectorAll(".lyric").forEach(l => l.style.display = "none");
-
-  // if it was closed, open it
   if (!isOpen) lyric.style.display = "block";
 });
 
@@ -210,7 +203,6 @@ document.getElementById("search").addEventListener("input", event => {
 
 document.getElementById("filters").addEventListener("click", event => {
   const btn = event.target.closest(".filter-btn");
-
   if (!btn) return;
 
   document.querySelectorAll(".filter-btn").forEach(button => {
@@ -218,7 +210,6 @@ document.getElementById("filters").addEventListener("click", event => {
   });
 
   btn.classList.add("active");
-
   activeTag = btn.dataset.tag;
 
   if (activeTag === "all") {
