@@ -181,10 +181,6 @@ function render() {
     `;
   }).join("");
 }
-<div id="quote-panel" class="quote-panel">
-  <h3>Select a song</h3>
-  <p>Click a song to see the quote.</p>
-</div>
 
 document.getElementById("grid").addEventListener("click", event => {
   const album = event.target.closest(".clickable-album");
