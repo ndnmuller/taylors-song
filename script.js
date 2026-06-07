@@ -9,7 +9,7 @@ const songs = [
 lyrics: {
   queercoded: "I don't wanna keep secrets just to keep you","And I snuck in through the garden gate every night that summer just to seal my fate",
   "for what it's worth"
-
+}
 },
   { title: "You Need To Calm Down", album: "Lover", tags: ["queercoded", "fame"] },
   { title: "Cornelia Street", album: "Lover", tags: ["heartbreak", "nostalgia"] },
